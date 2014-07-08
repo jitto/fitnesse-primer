@@ -1,0 +1,59 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fitnesse</groupId>
+    <artifactId>fitnesse</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Fitnesse Sample</name>
+
+    <properties>
+        <fitnesse.version>20121220</fitnesse.version>
+        <fitnesse.port>9025</fitnesse.port>
+        <fitnesse.launcher.plugin.version>1.3.0</fitnesse.launcher.plugin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>uk.co.javahelp.fitnesse</groupId>
+                <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+                <version>${fitnesse.launcher.plugin.version}</version>
+                <configuration>
+                    <port>${fitnesse.port}</port>
+                    <workingDir>${project.build.directory}/fitnesse</workingDir>
+                    <root>FitNesseRoot</root>
+                    <testResourceDirectory>src/test/fitnesse</testResourceDirectory>
+                    <reportsDir>${project.build.directory}/fitnesse/reports</reportsDir>
+                    <resultsDir>${project.build.directory}/fitnesse/results</resultsDir>
+                    <summaryFile>${project.build.directory}/fitnesse/results/failsafe-summary.xml</summaryFile>
+                    <createSymLink>true</createSymLink>
+                    <suiteFilter>complete</suiteFilter>
+
+                    <useProjectDependencies>
+                        <scope>compile</scope>
+                        <scope>runtime</scope>
+                        <scope>test</scope>
+                    </useProjectDependencies>
+                    <suite>ProductPage</suite>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>set-up</goal>
+                            <goal>wiki</goal>
+                            <goal>tear-down</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.fitnesse</groupId>
+            <artifactId>fitnesse</artifactId>
+            <version>${fitnesse.version}</version>
+        </dependency>
+    </dependencies>
+</project>
